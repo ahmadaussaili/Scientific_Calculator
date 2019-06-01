@@ -1,0 +1,790 @@
+Dim n0 As Single
+Dim n1 As Single
+Dim n2 As Single
+Dim op As String
+Dim Sop As String
+Dim memorizedNum As Double
+Dim opPendingAdd As Boolean
+Dim opPendingSubtract As Boolean
+Dim opPendingMultiply As Boolean
+Dim opPendingDivide As Boolean
+Dim newNumberEquals As Boolean
+Dim newNumber As Boolean
+
+Private Sub CommandNum_Click(Index As Integer)
+
+If panel.Caption = "0" Or newNumber = True Or panel.Caption = "Error" Then
+
+newNumber = False
+
+n1 = Val(panel.Caption)
+
+n2 = 0
+
+opPendingAdd = False
+opPendingSubtract = False
+opPendingDivide = False
+opPendingMultiply = False
+
+panel.Caption = ""
+
+End If
+
+If newNumberEquals = True Then
+
+newNumberEquals = False
+
+panel.Caption = ""
+
+n1 = 0
+
+End If
+
+If Len(panel.Caption) < 20 Then
+
+panel.Caption = panel.Caption + Right$(Str(Index), 1)
+
+If Len(panel.Caption) > 16 Then
+
+panel.Font.Size = panel.Font.Size - 1.5
+
+Else
+
+panel.FontSize = 26
+
+End If
+
+Else
+
+panel.Caption = panel.Caption
+
+End If
+
+End Sub
+
+Private Sub CommandDecimal_Click()
+
+If panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf" Then
+panel.Caption = "0"
+panel.FontSize = 26
+End If
+
+If InStr(panel.Caption, ".") = 0 Then
+panel.Caption = panel.Caption + "."
+End If
+
+If newNumber = True Then
+
+newNumber = False
+
+panel.Caption = "0."
+
+End If
+
+End Sub
+
+Private Sub CommandAdd_Click()
+
+newNumberEquals = False
+
+newNumber = True
+
+opPendingAdd = True
+
+If op = "-" Then
+
+If opPendingSubtract = True Then
+opPendingSubtract = False
+panel.Caption = panel.Caption
+op = "+"
+Else
+op = "+"
+n2 = Val(panel.Caption)
+panel.Caption = n1 - n2
+End If
+
+ElseIf op = "*" Then
+
+If opPendingMultiply = True Then
+opPendingMultiply = False
+panel.Caption = panel.Caption
+op = "+"
+Else
+op = "+"
+n2 = Val(panel.Caption)
+panel.Caption = n1 * n2
+End If
+
+ElseIf op = "/" Then
+
+If opPendingDivide = True Then
+opPendingDivide = False
+panel.Caption = panel.Caption
+op = "+"
+Else
+op = "+"
+n2 = Val(panel.Caption)
+
+If n2 <> 0 Then
+panel.Caption = n1 / n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+End If
+
+Else
+
+If n1 <> 0 Then
+op = "+"
+n2 = Val(panel.Caption)
+panel.Caption = n1 + n2
+n1 = 0
+Else
+op = "+"
+n1 = Val(panel.Caption)
+panel.Caption = panel.Caption
+End If
+
+End If
+
+End Sub
+
+Private Sub CommandSubtract_Click()
+
+newNumber = True
+
+newNumberEquals = False
+
+opPendingSubtract = True
+
+If op = "+" Then
+
+If opPendingAdd = True Then
+opPendingAdd = False
+panel.Caption = panel.Caption
+op = "-"
+Else
+op = "-"
+n2 = Val(panel.Caption)
+panel.Caption = n1 + n2
+End If
+
+ElseIf op = "*" Then
+
+If opPendingMultiply = True Then
+opPendingMultiply = False
+panel.Caption = panel.Caption
+op = "-"
+Else
+op = "-"
+n2 = Val(panel.Caption)
+panel.Caption = n1 * n2
+End If
+
+ElseIf op = "/" Then
+
+If opPendingDivide = True Then
+opPendingDivide = False
+panel.Caption = panel.Caption
+op = "-"
+Else
+op = "-"
+n2 = Val(panel.Caption)
+
+If n2 <> 0 Then
+panel.Caption = n1 / n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+End If
+
+Else
+
+If n1 <> 0 Then
+op = "-"
+n2 = Val(panel.Caption)
+panel.Caption = n1 - n2
+n1 = 0
+Else
+op = "-"
+n1 = Val(panel.Caption)
+panel.Caption = panel.Caption
+End If
+
+End If
+
+End Sub
+
+Private Sub CommandMultiply_Click()
+
+newNumber = True
+
+newNumberEquals = False
+
+opPendingMultiply = True
+
+If op = "+" Then
+
+If opPendingAdd = True Then
+opPendingAdd = False
+panel.Caption = panel.Caption
+op = "*"
+Else
+op = "*"
+n2 = Val(panel.Caption)
+panel.Caption = n1 + n2
+End If
+
+ElseIf op = "-" Then
+
+If opPendingSubtract = True Then
+opPendingSubtract = False
+panel.Caption = panel.Caption
+op = "*"
+Else
+op = "*"
+n2 = Val(panel.Caption)
+panel.Caption = n1 - n2
+End If
+
+ElseIf op = "/" Then
+
+If opPendingDivide = True Then
+opPendingDivide = False
+panel.Caption = panel.Caption
+op = "*"
+Else
+op = "*"
+n2 = Val(panel.Caption)
+
+If n2 <> 0 Then
+panel.Caption = n1 / n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+End If
+
+Else
+
+If n1 <> 0 Then
+op = "*"
+n2 = Val(panel.Caption)
+panel.Caption = n1 * n2
+n1 = 0
+Else
+op = "*"
+n1 = Val(panel.Caption)
+panel.Caption = panel.Caption
+End If
+
+' or If n2 = 0 Then
+
+'op = "*"
+'n2 = Val(panel.Caption)
+'panel.Caption = n1 * n2
+
+'Else
+
+'panel.Caption = panel.Caption
+
+'End If
+
+End If
+
+End Sub
+
+Private Sub CommandDivide_Click()
+
+newNumber = True
+
+newNumberEquals = False
+
+opPendingDivide = True
+
+If op = "+" Then
+
+If opPendingAdd = True Then
+opPendingAdd = False
+panel.Caption = panel.Caption
+op = "/"
+Else
+op = "/"
+n2 = Val(panel.Caption)
+panel.Caption = n1 + n2
+End If
+
+ElseIf op = "-" Then
+
+If opPendingSubtract = True Then
+opPendingSubtract = False
+panel.Caption = panel.Caption
+op = "/"
+Else
+op = "/"
+n2 = Val(panel.Caption)
+panel.Caption = n1 - n2
+End If
+
+ElseIf op = "*" Then
+
+If opPendingMultiply = True Then
+opPendingMultiply = False
+panel.Caption = panel.Caption
+op = "/"
+Else
+op = "/"
+n2 = Val(panel.Caption)
+panel.Caption = n1 * n2
+End If
+
+Else
+
+If n1 <> 0 Then
+op = "/"
+n2 = Val(panel.Caption)
+
+If n2 <> 0 Then
+panel.Caption = n1 / n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+n1 = 0
+Else
+op = "/"
+n1 = Val(panel.Caption)
+panel.Caption = panel.Caption
+End If
+
+End If
+
+End Sub
+
+Private Sub CommandEquals_Click()
+
+newNumberEquals = True
+
+If panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf" Then
+panel.Caption = "0"
+panel.FontSize = 26
+End If
+
+If Len(panel.Caption) > 16 Then
+
+panel.Font.Size = 20
+
+End If
+
+n2 = Val(panel.Caption)
+
+If op = "+" Then
+panel.Caption = n1 + n2
+n1 = 0
+
+ElseIf op = "-" Then
+panel.Caption = n1 - n2
+n1 = 0
+
+ElseIf op = "*" Then
+panel.Caption = n1 * n2
+n1 = 0
+
+ElseIf op = "/" Then
+
+If n2 <> 0 Then
+panel.Caption = n1 / n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+n1 = 0
+
+End If
+ 
+If Sop = "x^y" Then
+
+If n0 < 0 And n2 < 1 Then
+panel.Caption = "Error"
+panel.FontSize = 26
+Else
+panel.Caption = n0 ^ n2
+End If
+
+ElseIf Sop = "x^(1/y)" Then
+
+If n2 = 0 Then
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+'If n2 Mod 2 = 0 Then
+
+If n0 >= 0 Then
+panel.Caption = n0 ^ (1 / n2)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+'Else
+
+'panel.Caption = n0 ^ (1 / n2)
+
+'End If
+
+ElseIf Sop = "logyx" Then
+
+If n0 > 0 And n2 > 0 Then
+panel.Caption = Log(n0) / Log(n2)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Sop = "mod" Then
+
+If n2 <> 0 Then
+panel.Caption = n0 Mod n2
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+End If
+
+op = ""
+Sop = ""
+
+End Sub
+
+Private Sub CommandClear_Click()
+
+n0 = 0
+n1 = 0
+n2 = 0
+
+panel.Caption = "0"
+
+panel.FontSize = 26
+
+End Sub
+
+Private Sub CommandMorP_Click()
+
+If panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf" Then
+panel.Caption = "0"
+panel.FontSize = 26
+End If
+
+If panel.Caption <> 0 Then
+ If Left$(panel.Caption, 1) = "-" Then
+                    panel.Caption = Right$(panel.Caption, Len(panel.Caption) - 1)
+                Else
+                    panel.Caption = "-" & panel.Caption
+                End If
+End If
+
+End Sub
+
+Private Sub CommandPercent_Click()
+
+newNumber = True
+
+n1 = Val(panel.Caption)
+
+panel.Caption = Round(n1 / 100, 20)
+
+If Len(panel.Caption) < 16 Then
+panel.Font.Size = 26
+Else
+panel.FontSize = 20
+End If
+
+End Sub
+
+Private Sub CommandBackSpace_Click()
+
+If panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf" Then
+panel.Caption = "0"
+panel.FontSize = 26
+End If
+
+panel.Caption = Left$(panel.Caption, Len(panel.Caption) - 1)
+
+If panel.Caption = "" Or panel.Caption = "-" Then
+panel.Caption = "0"
+End If
+
+If Len(panel.Caption) = 16 Then
+
+panel.FontSize = 26
+
+End If
+
+End Sub
+
+Private Sub CommandScientific_Click()
+
+Dim button As CommandButton
+
+For Each button In CommandS
+
+If button.Visible = True Then
+
+button.Visible = False
+
+SCForm.Height = 7395
+SCForm.Width = 6240
+
+Else
+
+button.Visible = True
+
+SCForm.Height = 7395
+SCForm.Width = 11025
+
+End If
+
+Next
+
+End Sub
+
+Private Sub CommandDev_Click()
+
+panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf"
+
+panel.FontSize = 12
+
+End Sub
+
+Private Sub CommandExit_Click()
+End
+End Sub
+
+Private Sub CommandS_Click(Index As Integer)
+
+newNumber = True
+
+If panel.Caption = "Developed by Ahmad Aussaili and Seren Wassouf" Then
+panel.Caption = "0"
+panel.FontSize = 26
+End If
+
+If Len(panel.Caption) > 14 Then
+panel.FontSize = 20
+Else
+panel.FontSize = 26
+End If
+
+If Index <> 3 Then       'mr'
+n0 = Val(panel.Caption)
+End If
+
+If Index = 0 Then                                'mc'
+
+memorizedNum = 0
+ 
+ElseIf Index = 1 Then                            'm+'
+
+memorizedNum = memorizedNum + n0
+ 
+ElseIf Index = 2 Then                            'm-'
+
+memorizedNum = memorizedNum - n0
+
+ElseIf Index = 3 Then                            'mr'
+
+If Len(memorizedNum) < 14 Then
+
+panel.FontSize = 26
+
+Else
+
+panel.FontSize = 20
+
+End If
+
+panel.Caption = memorizedNum
+
+ElseIf Index = 4 Then                            'mod'
+
+Sop = "mod"
+
+panel.Caption = "0"
+
+panel.FontSize = 26
+
+ElseIf Index = 5 Then                            'logxy'
+
+Sop = "logyx"
+
+panel.Caption = "0"
+
+panel.FontSize = 26
+
+ElseIf Index = 6 Then                            'ln'
+
+If n0 > 0 Then
+panel.Caption = Log(n0)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Index = 7 Then                            'log10'
+
+If n0 > 0 Then
+panel.Caption = Log(n0) / Log(10)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Index = 8 Then                            '1/x'
+
+If n0 <> 0 Then
+panel.Caption = 1 / n0
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Index = 9 Then                            'square root'
+
+If n0 >= 0 Then
+panel.Caption = Sqr(n0)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Index = 10 Then                           'cube root'
+
+If n0 >= 0 Then
+panel.Caption = n0 ^ (1 / 3)
+Else
+panel.Caption = "Error"
+panel.FontSize = 26
+End If
+
+ElseIf Index = 11 Then                           'y root'
+
+panel.Caption = "0"
+
+Sop = "x^(1/y)"
+
+panel.FontSize = 26
+
+ElseIf Index = 12 Then                           'x^2'
+
+panel.Caption = n0 ^ 2
+
+ElseIf Index = 13 Then                           'x^3'
+
+panel.Caption = n0 ^ 3
+
+ElseIf Index = 14 Then                           'x^y'
+
+panel.Caption = "0"
+
+Sop = "x^y"
+
+panel.FontSize = 26
+
+ElseIf Index = 15 Then                           '10^x'
+
+panel.Caption = 10 ^ n0
+
+ElseIf Index = 16 Then                           'sinx'
+ 
+panel.Caption = Sin(n0 * 4 * Atn(1) / 180)
+
+ElseIf Index = 17 Then                           'cosx'
+ 
+panel.Caption = Cos(n0 * 4 * Atn(1) / 180)
+ 
+ElseIf Index = 18 Then                           'tanx'
+
+panel.Caption = Tan(n0 * 4 * Atn(1) / 180)
+
+ElseIf Index = 19 Then                           'Pi'
+
+panel.Caption = 4 * Atn(1)
+
+End If
+
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+
+Dim numIndex As Integer
+
+Select Case KeyCode
+
+        Case vbKey0, vbKeyNumpad0:  numIndex = 0
+        Case vbKey1, vbKeyNumpad1:  numIndex = 1
+        Case vbKey2, vbKeyNumpad2:  numIndex = 2
+        Case vbKey3, vbKeyNumpad3:  numIndex = 3
+        Case vbKey4, vbKeyNumpad4:  numIndex = 4
+        Case vbKey5, vbKeyNumpad5:  numIndex = 5
+        Case vbKey6, vbKeyNumpad6:  numIndex = 6
+        Case vbKey7, vbKeyNumpad7:  numIndex = 7
+        Case vbKey8, vbKeyNumpad8:  numIndex = 8
+        Case vbKey9, vbKeyNumpad9:  numIndex = 9
+        
+        Case Else: Exit Sub
+
+End Select
+
+CommandNum(numIndex).SetFocus
+CommandNum_Click numIndex
+
+End Sub
+
+Private Sub Form_KeyPress(KeyAscii As Integer)
+
+Select Case KeyAscii
+
+       Case 43, vbKeyAdd: CommandAdd.SetFocus                             '+'
+                          Call CommandAdd_Click
+                
+       Case 45, vbKeySubtract: CommandSubtract.SetFocus                   '-'
+                               Call CommandSubtract_Click
+                
+       Case 42, vbKeyMultiply, 120, 88: CommandMultiply.SetFocus          '*,x,X'
+                                        Call CommandMultiply_Click
+                
+       Case 47, vbKeyDivide: CommandDivide.SetFocus                       '/'
+                             Call CommandDivide_Click
+                             
+       Case 46: CommandDecimal.SetFocus                                   '.'
+                Call CommandDecimal_Click
+                          
+       Case 61: CommandEquals.SetFocus                                    '='
+                Call CommandEquals_Click
+                
+       Case 99, 67: CommandClear.SetFocus                                 'c,C'
+                    Call CommandClear_Click
+                    
+       Case 95: CommandMorP.SetFocus                                      '_'
+                Call CommandMorP_Click
+                
+       Case 8: CommandBackSpace.SetFocus                                  '<-'
+               Call CommandBackSpace_Click
+               
+       Case 27: CommandExit.SetFocus                                      'Esc'
+                Call CommandExit_Click
+                
+       Case Else: Exit Sub
+       
+End Select
+
+End Sub
